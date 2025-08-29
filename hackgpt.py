@@ -188,7 +188,7 @@ logging.basicConfig(
     level=getattr(logging, config.LOG_LEVEL),
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('/var/log/hackgpt.log'),
+        logging.FileHandler('logs/hackgpt.log'),
         logging.StreamHandler()
     ]
 )
