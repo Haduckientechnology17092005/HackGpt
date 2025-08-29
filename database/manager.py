@@ -64,7 +64,7 @@ class DatabaseManager:
             return False
     
     # Session management
-    def create_pentest_session(self, target: str, scope: str, created_by: str, auth_key: str) -> str:
+    def create_pentest_session(self, target: str, scope: str, created_by: str, auth_key: str, assessment_type: str = "black-box") -> str:
         """Create a new pentest session"""
         with self.get_session() as session:
             # Hash the auth key for security

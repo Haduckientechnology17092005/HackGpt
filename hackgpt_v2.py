@@ -206,6 +206,13 @@ class EnterpriseHackGPT:
         
     def initialize_components(self):
         """Initialize core components"""
+        # Initialize all attributes first with fallback values
+        self.auth = None
+        self.cache = None  
+        self.processor = None
+        self.compliance = None
+        self.db = None
+        
         try:
             # Database
             if MODULES_AVAILABLE:
@@ -225,24 +232,36 @@ class EnterpriseHackGPT:
             
             # Authentication
             if MODULES_AVAILABLE:
-                self.auth = EnterpriseAuth()
-                self.console.print("[green]✓[/green] Enterprise authentication initialized")
+                try:
+                    self.auth = EnterpriseAuth()
+                    self.console.print("[green]✓[/green] Enterprise authentication initialized")
+                except Exception as e:
+                    self.auth = None
+                    self.console.print(f"[yellow]⚠[/yellow] Authentication not available: {str(e)}")
             else:
                 self.auth = None
                 self.console.print("[yellow]⚠[/yellow] Authentication not available")
             
             # Cache Manager
             if MODULES_AVAILABLE:
-                self.cache = get_cache_manager()
-                self.console.print("[green]✓[/green] Cache manager initialized")
+                try:
+                    self.cache = get_cache_manager()
+                    self.console.print("[green]✓[/green] Cache manager initialized")
+                except Exception as e:
+                    self.cache = None
+                    self.console.print(f"[yellow]⚠[/yellow] Cache not available: {str(e)}")
             else:
                 self.cache = None
                 self.console.print("[yellow]⚠[/yellow] Cache not available")
             
             # Parallel Processor
             if MODULES_AVAILABLE:
-                self.processor = get_parallel_processor()
-                self.console.print("[green]✓[/green] Parallel processor initialized")
+                try:
+                    self.processor = get_parallel_processor()
+                    self.console.print("[green]✓[/green] Parallel processor initialized")
+                except Exception as e:
+                    self.processor = None
+                    self.console.print(f"[yellow]⚠[/yellow] Parallel processing not available: {str(e)}")
             else:
                 self.processor = None
                 self.console.print("[yellow]⚠[/yellow] Parallel processing not available")
